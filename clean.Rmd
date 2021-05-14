@@ -1,0 +1,92 @@
+The goal of this file is to read in the XLSX File
+"USA_2020_2021_Apr02.xlsx" and clean so that
+1.) Only includes protest in North Carolina
+2.)Protests in the summer of 2020 
+
+Beyond that, we need to collapse so that only 1 observation occurs per county, 
+estimate the number of protesters in that county, estimate the violence from 
+police, estimate the number of protests with property damage 
+
+
+```{r Load Packages}
+
+Install_Load_Packages <- function(require){
+  
+  if (!require(xlsx)) {
+    install.packages("xlsx")
+    library(xlsx)
+  }
+  
+  if (!require(sqldf)) {
+    install.packages("sqldf")
+    library(sqldf)
+  }
+
+  if (!require(ggplot2)) {
+    install.packages("ggplot2")
+    library(ggplot2)
+  }
+
+}
+```
+
+
+```{r Read_Data}
+
+Country_Wide_Protests <- readxl::read_xlsx("USA_2020_2021_Apr02.xlsx")
+
+```
+
+```{r Cursory_Look}
+names(Country_Wide_Protests)
+summary(Country_Wide_Protests)
+
+head(Country_Wide_Protests)
+tail(Country_Wide_Protests)
+
+```
+```{r}
+All_NC_Protests <- sqldf::sqldf("SELECT *
+                                FROM Country_Wide_Protests
+                                WHERE ADMIN1 is "North Carolina"
+                                ORDER BY ISO DESC")
+
+
+```
+
+```{r}
+
+All_NC_Protests <- subset(Country_Wide_Protests,
+                          Country_Wide_Protests$ADMIN1 == "North Carolina")
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
