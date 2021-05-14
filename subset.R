@@ -41,8 +41,8 @@ All_NC_Protests <- subset(All_Protests,
 
 
 Summer_2020_NC_Protests <- subset(All_NC_Protests,
-                                  All_NC_Protests$EVENT_DATE > "2020-6-01" &
-                                  All_NC_Protests$EVENT_DATE < "2020-08-31")
+                                  All_NC_Protests$EVENT_DATE >= "2020-6-01" &
+                                  All_NC_Protests$EVENT_DATE <= "2020-08-31")
 
 Summer_2020_NC_Protests$EVENT_DATE
 
@@ -53,15 +53,13 @@ Summer_2020_NC_Protests$EVENT_DATE
 # 1.) Collapse observations 
 # 2.) Create observations for est amount of protesters 
 
-
-Summer_2020_NC_Protests$EST_PROTEST_SIZE 
-
-
+# Create new empty column in our Dataframe called "Est_Protest_Size"
+Summer_2020_NC_Protests['Est_Protest_Size'] <- NA
 
 
+# Loop through the Notes Section and find the estimated size per protest, 
+# put that finding into the empty column Est_Protest_Size
 
+Summer_2020_NC_Protests$EVENT_DATE[1] <- "2020-06-03"
 
-
-
-
-
+Summer_2020_NC_Protests$EVENT_DATE[1]
