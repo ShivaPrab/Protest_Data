@@ -16,9 +16,9 @@ Install_Load_Packages <- function(require){
     install.packages("ggplot2")
     library(ggplot2)
   }
-  if (!require(regex)) {
-    install.packages("regex")
-    library(regex)
+  if (!require(dplyr)) {
+    install.packages("dplyr")
+    library(dplyr)
   }
 }
 
@@ -53,13 +53,18 @@ Summer_2020_NC_Protests$EVENT_DATE
 # 1.) Collapse observations 
 # 2.) Create observations for est amount of protesters 
 
-# Create new empty column in our Dataframe called "Est_Protest_Size"
-Summer_2020_NC_Protests['Est_Protest_Size'] <- NA
-
 
 # Loop through the Notes Section and find the estimated size per protest, 
 # put that finding into the empty column Est_Protest_Size
 
-Summer_2020_NC_Protests$EVENT_DATE[1] <- "2020-06-03"
+Summer_2020_NC_Protests <- Summer_2020_NC_Protests %>% 
+  
+    mutate(Est_Protest_Size = trimws(str_extract(Summer_2020_NC_Protests$NOTES, 
+                                                          '(?<=size=)[^\\]]+')))
 
-Summer_2020_NC_Protests$EVENT_DATE[1]
+
+table(Summer_2020_NC_Protests$Est_Protest_Size)
+
+
+
+
